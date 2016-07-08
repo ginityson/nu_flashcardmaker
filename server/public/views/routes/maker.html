@@ -1,0 +1,52 @@
+<div class="Jumbotron" ng-controller="MakeController">
+  <h1>Make</h1>
+    <div>
+      <h1>CREATE NEW DECK INPUT</h1>
+        <input type="text" ng-model="new_deckIn" name="name" placeholder="new_deck" value="">
+
+
+        <button ng-click="createDeck()">Create Deck</button>
+        <button ng-click="getDeck()">getDeck</button>
+          Making the {{new_deckIn}} deck!
+            <table>
+
+
+                <tr ng-repeat="x in theDeckArray">
+                    <td>{{x}}</td>
+                </tr>
+            </table>
+    </div>
+
+
+
+    <div>
+      <h1>DROPDOWN EXISTING DECKS</h1>
+        <p>dropdown to display current decks</p>
+        <select ng-model="selectDeck" ng-options='x for x in theDeckArray'></select>
+        <p>text line saying 'working in  (double bind here from dropdown) deck'</p>
+        <button ng-click="removeDeck()">Remove Deck</button>
+        <p>text line saying 'removing the (double bind here from dropdown) deck'</p>
+        <p>button 'yes please remove the deck'</p>
+    </div>
+    <div>
+      <h1>CARD COUNTER</h1>
+        <p>card count "x card of x"</p>
+        <button ng-click="backCard()">Back</button>
+        <button ng-click="nextCard()">Next</button>
+    </div>
+    <div>
+      <h1>THE CARD</h1>
+        <p> input box for the card and where cursor will populate</p>
+        <input type="text" ng-model="the_card" name="name" placeholder="the_card" value="">
+        <p>the keyboard 'how does this work?'</p>
+        <button ng-click="newCard()">New Card</button>
+        <button ng-click="flipCard()">Flip Card</button>
+        <button ng-click="saveCard()">Save Card</button>
+        <button ng-click="deleteCard()">Delete Card</button>
+
+    </div>
+    <div>
+      <h1>button for 'saving entier deck'</h1>
+      <button ng-click="saveDeck()">Save Deck</button>
+    </div>
+</div>

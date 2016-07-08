@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>flashCard Maker</title>
+      <script  src="vendors/angular.min.js"></script>
+      <script  src="/vendors/angular-route.min.js"></script>
+      <script  src="vendors/ui-bootstrap-tpls-1.3.3.min.js"></script>
+      <script  src="/assets/client.js"></script>
+      <link rel="stylesheet" href="/vendors/bootstrap.css" media="screen" title="no title" charset="utf-8">
+      <link rel="stylesheet" href="/vendors/bootstrap.css.map" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <h1>flashCard Maker</h1>
+    <div ng-include="'/views/partials/nav.html'"></div>
+    <main ng-view></main>
+
+  </body>
+</html>

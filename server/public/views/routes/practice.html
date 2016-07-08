@@ -1,0 +1,24 @@
+<div class="Jumbotron" ng-controller="PracticeController">
+  <h1>Practice</h1>
+    <div>
+      <h1>DROPDOWN OF DECKS</h1>
+        <p>dropdown of decks</p>
+        <select ng-model="selectDeck" ng-options='x for x in decks'></select>
+        <p>text before deck selection "Please select a deck"</p>
+        <p>text when deck selected "The (name of deck) deck"</p>
+        <p>text when deck completed "You finished the (name of deck) deck! Good Job!"</p>
+    </div>
+    <div>
+      <h1>CARD COUNTER</h1>
+        <p>card count "x card of x"</p>
+        <button ng-click="backCard()">Back</button>
+        <button ng-click="nextCard()">Next</button>
+    </div>
+    <div>
+      <h1>THE CARD</h1>
+        <p>box for the card</p>
+        <button ng-click="reshuffle()">Reshuffle</button>
+        <button ng-click="flipCard()">Flip</button>
+        <button ng-click="discard()">Discard</button>
+    </div>
+</div>

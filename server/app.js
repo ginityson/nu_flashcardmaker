@@ -24,7 +24,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
     console.log('in getDeck');
     var results = [];//holds our results
         pg.connect(connectionString, function(err, client, done){
-          var query = client.query( 'SELECT * FROM decks ORDER BY id DESC;' );
+          var query = client.query( 'SELECT * FROM decks;' );
           console.log('query: ' + query);
           var rows = 0;
               query.on( 'row', function ( row ) {
@@ -40,26 +40,71 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
                 }//end err
         });//end connect
 });//end /getDeck
+
+ app.get('/getCards', function( req, res ){//send back all cards that conform to query
+     console.log('in /getCards...' );
+     var results = [];//holds our results
+         pg.connect(connectionString, function(err, client, done){
+           if( err ) {
+             console.log(err);
+           }//end err
+           else{
+             var query = client.query( 'SELECT * FROM cards' ); // WHERE deck_name=' + req.body.deck_name );
+    
+             var rows = 0;
+             query.on( 'row', function ( row ) {
+               results.push( row );
+                 done();
+             });//end query push
+             query.on ( 'end', function() {
+              //  console.log(results);
+               return res.json( results );
+             });//end on end
+           }
+         });//end connect
+ });//end /getDeckOfCards'
+
+
 //POST for function createDeck
 app.post( '/deckPost', function( req, res ){
-  //console.log(" 1st in /deckPost, and we have received: " + req.body.deck);
-  pg.connect(connectionString, function(err, client, done){
-    console.log(req.body.deck);
-    client.query("INSERT INTO decks ( name ) VALUES ( $1 )", [ req.body.deck ],
-  function(err, result) {
-    done();
-    if(err){
-      console.log(err);
-      res.sendStatus(500);
-    } else {
-      //console.log('after else in post');
-    }
-  });
-  res.send();
-  done();
-  });//end pg connect
-  //console.log("2nd in /deckPost, and we have received: " + req.body.name);
-  //res.end();
+      //console.log(" 1st in /deckPost, and we have received: " + req.body.deck);
+      pg.connect(connectionString, function(err, client, done){
+            console.log(req.body.deck);
+            client.query("INSERT INTO decks ( name ) VALUES ( $1 )", [ req.body.deck ],
+          function(err, result) {
+              done();
+              if(err){
+                console.log(err);
+                res.sendStatus(500);
+              } else {
+                //console.log('after else in post');
+              }
+          });//end err handling
+          res.send();
+          done();
+      });//end pg connect
+}); // end /deckPost
+
+//POST for function createCard
+ app.post( '/cardPost', function( req, res ){
+       console.log(" 1st in /cardPost, and we have received: " + req.body.deck_name);
+       pg.connect(connectionString, function(err, client, done){
+             console.log(req.body.card_front);
+             console.log(req.body.card_back);
+             console.log(req.body.deck_name);
+             client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
+           function(err, result) {
+               done();
+               if(err){
+                 console.log(err);
+                 res.sendStatus(500);
+               } else {
+                 console.log('after else in post');
+               }//end else
+           });//end err handling
+           res.send();
+           done();
+       });//end pg connect
 }); // end /deckPost
 
 //spin up server

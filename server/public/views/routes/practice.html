@@ -1,31 +1,44 @@
 <div class="Jumbotron" ng-controller="PracticeController">
-  <h1>Practice</h1>
+  <h1>Practice Mode</h1>
 
     <div>
       <h1>DROPDOWN OF DECKS</h1>
-        <label>dropdown of decks
+        <label>select a deck
         <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
-        <button ng-click="getCards()">getDeckOfCards</button>
+        <button ng-click="getCards()">Fetch the Cards</button>
         </label>
-        <!-- <div ng-repeat="x in theDeckArray">
-          <p>{{x.name}}</p> -->
     </div>
 
+    <option value="">-- choose a card --</option>
+    <label>Card:
+        <select ng-model="myCard" ng-options="card.front_text for card in theCardArray"></select>
+    </label><br/>
+
+    Currently selected: {{ {selected_card: myCard} }}
+
+          <div id="card" >
+            {{myCard.front_text}}
+          </div>
+
+          <button ng-click="verso=!verso">Verso!</button>
+
+          <div id="card">
+            <span ng-show="verso">{{myCard.back_text}}</span>
+            <span ng-hide="verso"></span>
+          </div>
+
+
     <div>
-      <h1>THE CARD</h1>
-      <button ng-click="reshuffle()">Reshuffle</button>
-        <div style="border:solid 1px black; height:80px" ng-repeat="card in theCardArray">
-            <p>{{ card.front_text }}</p>
-            <p>{{ card.back_text }}</p>
-            <button ng-click="flipCard()">Flip</button>
-            <button ng-click="discard()">Discard</button>
-        </div>
-    </div>
-    <div>
-      <h1>CARD COUNTER</h1>
-        <p>card count "x card of x"</p>
-        <button ng-click="backCard()">Back</button>
-        <button ng-click="nextCard()">Next</button>
+      <h1>THE CARDS</h1>
+      There are {{theCardArray.length}} cards in the deck. They are:
+      <div ng-repeat="card in theCardArray">
+
+          <div  id="card"> {{ card.front_text }}</div>
+          <div  id="card"> {{ card.back_text }}</div>
+
+           <!-- <div id="card"> {{ card.front_text }}</div>
+           <div id="card"> {{ card.back_text }}</div> -->
+      </div>
     </div>
 
-</div>
+</div> <!--end to PracticeController div

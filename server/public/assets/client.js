@@ -10,6 +10,10 @@ myApp.config(["$routeProvider", function($routeProvider){
               templateUrl: "/views/routes/maker.html",
               controller: "MakeController"
           }).
+          when("/edit", {
+              templateUrl: "/views/routes/edit.html",
+              controller: "EditController"
+          }).
           when("/practice", {
               templateUrl: "/views/routes/practice.html",
               controller: "PracticeController"
@@ -42,20 +46,6 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
       });//end .then
     };//end getDeck()
       $scope.getDeck();//calling getDeck() function
-      // var deckRequest={
-      //   deck_name: $scope.
-      // }
-      //  $scope.getCard = function(){
-      //    $http({
-      //      method: "POST",
-      //      url: '/getCard',
-      //     //  data: deckRequest
-      //    }).then( function( response ){
-      //      $scope.theDeckArray = response.data;
-      //      console.log('getCard() ' + $scope.theDeckArray);
-      //    });//end .then
-      //  };//end getCard()
-      //    $scope.getCard();//calling getCard() function
 
     $scope.createDeck = function(){
       console.log('createDeck clicked');
@@ -106,11 +96,55 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
 
 }]);//end MakeController
 
-myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http){
-    console.log("Loaded Practice");
+myApp.controller("EditController", ["$scope", "$http",function($scope, $http){
+    console.log("Loaded Edit");
+
+    $scope.custom = true;//for togle
 
     $scope.theDeckArray = [];//define the array theDeckArray
     $scope.theCardArray = [];//define the array theDeckArray
+
+    $scope.myCard = $scope.theCardArray[0];//just trying to drill down to one card at a time
+
+    $scope.getDeck = function(){
+      console.log('in Edit getDeck()');
+      $http({
+        method: "GET",
+        url: '/getDeck'
+      }).then( function( response ){
+        $scope.theDeckArray = response.data;
+        console.log('getDeckOfCards() in EditController' + $scope.theDeckArray);
+      });//end .then
+    };//end getDeck()
+    $scope.getDeck();
+
+    $scope.getCards = function(){
+    console.log('in Edit getCards()');
+      $http({
+        method: "GET",
+        url: '/getCards'
+      }).then( function( response ){
+        $scope.theCardArray=[];
+        for( i=0; i<response.data.length; i++ ){
+          if( response.data[i].deck_name == $scope.selectDeck.name ){
+            $scope.theCardArray.push( response.data[i] );
+          }
+        }
+        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray[1]);
+      });//end .then
+    };//end getDeck()
+
+}]);//end EditController
+
+myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http){
+    console.log("Loaded Practice");
+
+    $scope.custom = true;//for togle
+
+    $scope.theDeckArray = [];//define the array theDeckArray
+    $scope.theCardArray = [];//define the array theDeckArray
+
+    $scope.myCard = $scope.theCardArray[0];//just trying to drill down to one card at a time
 
     $scope.getDeck = function(){
       console.log('in Practice getDeck()');
@@ -136,7 +170,7 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
             $scope.theCardArray.push( response.data[i] );
           }
         }
-        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray);
+        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray[1]);
       });//end .then
     };//end getDeck()
 }]);//end PracticeController

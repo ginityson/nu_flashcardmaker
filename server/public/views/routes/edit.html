@@ -1,0 +1,24 @@
+<div class="Jumbotron" ng-controller="EditController">
+  <h1>Edit Mode</h1>
+
+  <div>
+    <h1>DROPDOWN OF DECKS</h1>
+      <label>select a deck
+      <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
+      <button ng-click="getCards()">Fetch the Cards</button>
+      </label>
+  </div>
+
+  <div>
+    <h1>THE CARDS</h1>
+    There are {{theCardArray.length}} cards in the deck. They are:
+    <div ng-repeat="card in theCardArray">
+
+        <div  id="card"> {{ card.front_text }}</div>
+        <div  id="card"> {{ card.back_text }}</div>
+
+         <!-- <div id="card"> {{ card.front_text }}</div>
+         <div id="card"> {{ card.back_text }}</div> -->
+    </div>
+  </div>
+</div>

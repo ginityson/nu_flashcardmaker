@@ -1,29 +1,30 @@
 <div class="Jumbotron" ng-controller="MakeController">
-  <h1>Make</h1>
+  <h1>Make Mode</h1>
 
     <div>
       <h1>CREATE NEW DECK INPUT</h1>
         <input type="text" ng-model="new_deckIn" name="name" placeholder="new deck" value="">
         <button ng-click="createDeck()">Create Deck</button>
-        <!-- <button ng-click="getDeck()">getDeck</button> -->
-          <!-- <p>Making the {{ new_deckIn }} deck!</p> -->
+        <!-- <button ng-click="getDeck()">getDeck</button>
+          <p>Making the {{ new_deckIn }} deck!</p> -->
     </div>
 
     <div>
       <h1>Create CARD</h1>
       <input type="text" ng-model="card_front_in" name="name" placeholder="card_front_in" value="">
+
+      <h1>THE CARD FRONT</h1>
+        <div id="card" class="box" >
+          <a>{{ card_front_in }} </a>
+        </div>
+
       <input type="text" ng-model="card_back_in" name="name" placeholder="card_back_in" value="">
+
+      <h1>THE CARD BACK</h1>
+        <div id="card" class="box" >
+          <a>{{ card_back_in }} </a>
+        </div>
+
       <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
       <button type="button" name="button" ng-click="createCard()">Create card</button>
-    </div>
-
-    <div>
-      <h1>THE CARD FRONT</h1>
-        <div style="border:solid 1px black; height:80px" >
-          <a>{{ card_front_in }} </a>
-    </div>
-    <div>
-      <h1>THE CARD BACK</h1>
-        <div style="border:solid 1px black; height:80px" >
-          <a>{{ card_back_in }} </a>
     </div>

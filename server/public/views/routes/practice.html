@@ -1,44 +1,55 @@
 <div class="Jumbotron" ng-controller="PracticeController">
-  <h1>Practice Mode</h1>
 
-    <div>
-      <h1>DROPDOWN OF DECKS</h1>
-        <label>select a deck
-        <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
-        <button ng-click="getCards()">Fetch the Cards</button>
-        </label>
-    </div>
+  <div class="row">
+    <div class="container">
+      <div class="col-md-12">
 
-    <option value="">-- choose a card --</option>
-    <label>Card:
-        <select ng-model="myCard" ng-options="card.front_text for card in theCardArray"></select>
-    </label><br/>
+        <h1>Practice Mode</h1>
 
-    Currently selected: {{ {selected_card: myCard} }}
-
-          <div id="card" >
-            {{myCard.front_text}}
+          <div>
+            <h1>DROPDOWN OF DECKS</h1>
+              <label>select a deck
+              <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
+              <button ng-click="getCards()">Fetch the Cards</button>
+              </label>
           </div>
 
-          <button ng-click="verso=!verso">Verso!</button>
+          <option value="">-- choose a card --</option>
+          <label>Card:
+              <select ng-model="myCard" ng-options="card.front_text for card in theCardArray"></select>
+          </label><br/>
 
-          <div id="card">
-            <span ng-show="verso">{{myCard.back_text}}</span>
-            <span ng-hide="verso"></span>
+          <!-- Currently selected: {{ {selected_card: myCard} }} -->
+
+                <div id="cardFace" >
+                  {{myCard.front_text}}
+                </div>
+
+
+
+                <div id="cardVerso">
+                  <span ng-show="verso">{{myCard.back_text}}</span>
+
+                  <span ng-hide="verso"></span>
+                  <button ng-click="verso=!verso">Verso!</button>
+                </div>
+
+
+
+          <div>
+            <h2>The CARDS</h2>
+            <p>There are {{theCardArray.length}} cards in the deck. They are:</p>
+            <div ng-repeat="card in theCardArray">
+
+                <div  id="cardFace"> {{ card.front_text }}</div>
+                <div  id="cardVerso"> {{ card.back_text }}</div>
+
+            </div>
           </div>
 
 
-    <div>
-      <h1>THE CARDS</h1>
-      There are {{theCardArray.length}} cards in the deck. They are:
-      <div ng-repeat="card in theCardArray">
-
-          <div  id="card"> {{ card.front_text }}</div>
-          <div  id="card"> {{ card.back_text }}</div>
-
-           <!-- <div id="card"> {{ card.front_text }}</div>
-           <div id="card"> {{ card.back_text }}</div> -->
       </div>
     </div>
+  </div>
 
 </div> <!--end to PracticeController div

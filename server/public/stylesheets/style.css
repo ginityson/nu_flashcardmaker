@@ -4,16 +4,6 @@
   margin: 100px 100px 100px 100px;*/
 }
 
-/*#card {
-  height: 100px;
-  width: 200px;
-  border-width: thick;
-  border-style: outset;
-  border-color: #0088dd;
-  padding: 10px;
-  margin: 50px 50px 50px 50px;
-  text-align: center;
-}*/
 #cardFace {
   float: left;
   height: 100px;
@@ -22,24 +12,19 @@
   border-style: outset;
   border-color: #0088dd;
   padding: 10px;
-  margin: 50px 50px 50px 50px;
+  margin: 50px 50px 50px 0px;
   text-align: center;
 
 }
 #cardVerso {
-  float: right;
+  float: left;
   height: 100px;
   width: 200px;
   border-width: thick;
   border-style: outset;
   border-color: green;
   padding: 10px;
-  margin: 50px 50px 50px 50px;
+  margin: 50px 50px 50px 0px;
   text-align: center;
 
 }
-
-/*Ex#1 to make 'click me' yellow
-.button.active {
-  color: yellow;
-}*/

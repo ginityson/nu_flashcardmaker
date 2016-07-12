@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp", ["ngRoute", "angular-carousel"]);
+var myApp = angular.module("myApp", ["ngRoute", "angular-carousel", 'ui.bootstrap']);
 
 myApp.config(["$routeProvider", function($routeProvider){
     $routeProvider.
@@ -165,12 +165,14 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
         url: '/getCards'
       }).then( function( response ){
         $scope.theCardArray=[];
+        console.log("this is the response data: ", response.data);
         for( i=0; i<response.data.length; i++ ){
           if( response.data[i].deck_name == $scope.selectDeck.name ){
             $scope.theCardArray.push( response.data[i] );
+
           }
         }
-        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray[1]);
+        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray);
       });//end .then
     };//end getDeck()
 }]);//end PracticeController

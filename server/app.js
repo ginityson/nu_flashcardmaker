@@ -3,9 +3,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');//have to have this
 
-//var app = express();
-//var path = require("path");
-//var bodyParser = require('body-parser');
 var pg = require('pg');
 
 var urlencodedParser = bodyParser.urlencoded( {extended: false});
@@ -30,7 +27,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
               query.on( 'row', function ( row ) {
                 results.push( row );
                   done();
-              });//end queriy push
+              });//end query push
               query.on ( 'end', function() {
                 console.log(results);
                 return res.json( results );
@@ -50,7 +47,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
            }//end err
            else{
              var query = client.query( 'SELECT * FROM cards' ); // WHERE deck_name=' + req.body.deck_name );
-    
+
              var rows = 0;
              query.on( 'row', function ( row ) {
                results.push( row );

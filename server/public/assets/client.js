@@ -98,8 +98,10 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
 
 myApp.controller("EditController", ["$scope", "$http",function($scope, $http){
     console.log("Loaded Edit");
+    event.preventDefault();
 
     $scope.custom = true;//for togle
+
 
     $scope.theDeckArray = [];//define the array theDeckArray
     $scope.theCardArray = [];//define the array theDeckArray
@@ -137,44 +139,96 @@ myApp.controller("EditController", ["$scope", "$http",function($scope, $http){
 }]);//end EditController
 
 myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http){
-    console.log("Loaded Practice");
+    console.log(" 1 Loaded Practice");
+    event.preventDefault();
+
+    $scope.index = 0;
+    console.log('2 ', $scope.index);
 
     $scope.custom = true;//for togle
 
     $scope.theDeckArray = [];//define the array theDeckArray
+    event.preventDefault();
     $scope.theCardArray = [];//define the array theDeckArray
+    event.preventDefault();
 
-    $scope.myCard = $scope.theCardArray[0];//just trying to drill down to one card at a time
+    console.log('3 ', $scope.theCardArray);
+
+    $scope.myCard = $scope.theCardArray[$scope.index];
+      event.preventDefault();
 
     $scope.getDeck = function(){
-      console.log('in Practice getDeck()');
+      // event.preventDefault();
+      console.log(' 4 in Practice getDeck()');
       $http({
         method: "GET",
         url: '/getDeck'
       }).then( function( response ){
-        $scope.theDeckArray = response.data;
-        console.log('getDeckOfCards() in PracticeController' + $scope.theDeckArray);
+        // $scope.theDeckArray = [];
+        $scope.theDeckArray = response.data;//pulls data from app.js and sets to ...?
+
+        console.log(' 5 getDeckOfCards() in PracticeController' + $scope.theDeckArray);
+      }, function myError( response ){
+        console.log( response.statusText );
       });//end .then
     };//end getDeck()
     $scope.getDeck();
+    event.preventDefault();
 
     $scope.getCards = function(){
-    console.log('in Practice getCards()');
+    console.log(' 6 in Practice getCards()');
       $http({
         method: "GET",
         url: '/getCards'
       }).then( function( response ){
-        $scope.theCardArray=[];
-        console.log("this is the response data: ", response.data);
-        for( i=0; i<response.data.length; i++ ){
-          if( response.data[i].deck_name == $scope.selectDeck.name ){
+        $scope.theCardArray = [];
+        for( i=0; i<response.data.length; i++ )
+          if( response.data[i].deck_name == $scope.selectDeck.name )
             $scope.theCardArray.push( response.data[i] );
+            // event.preventDefault();
 
-          }
-        }
-        console.log('getCards() in $scope.theCardArray: ', $scope.theCardArray);
+        // $scope.theCardArray=[];
+        // $scope.theCardArray= response.data;
+        $scope.myCard=$scope.theCardArray[$scope.index];
+        event.preventDefault();
+        console.log(" 7 this is the response data: ", response.data[$scope.index].front_text);
+
+
+        console.log(' 8 myCard', $scope.myCard);
+        console.log(' 9 getCards() in $scope.theCardArray: ', $scope.theCardArray);
+
       });//end .then
     };//end getDeck()
+
+    $scope.nextCard = function(){
+          console.log(" 10 next clicked");
+          $scope.index++;
+          if( $scope.index == $scope.theCardArray.length ){
+            $scope.index = 0;
+          }
+          console.log( '11', $scope.index  );
+          $scope.getCards();
+          event.preventDefault();
+
+        };
+        $scope.prevCard = function(){
+        console.log("12 prev clicked");
+          $scope.index--;
+          if( $scope.index === -1 ){
+            $scope.index = $scope.theCardArray.length - 1;
+          }
+          $scope.getCards();
+          event.preventDefault();
+        };
+
+          $scope.thumbnailPageOpen = function( index ){
+            $scope.index  = index;
+            $scope.getCards();
+            event.preventDefault();
+            console.log("clicked", $scope.index , "= number");
+          };
+
+
 }]);//end PracticeController
 
 myApp.factory("CounterService", [function(){

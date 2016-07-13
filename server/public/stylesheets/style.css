@@ -28,3 +28,7 @@
   text-align: center;
 
 }
+.card-hide {
+    left: -100px !important;
+    opacity: 0 !important;
+}

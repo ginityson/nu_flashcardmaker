@@ -8,6 +8,12 @@
 
         <div>
           <h1>DROPDOWN OF DECKS</h1>
+
+          <label>delete a deck
+          <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
+          <button ng-click="deleteDeck(x.name.id)">delete deck</button>
+          </label>
+
             <label>select a deck
             <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
             <button ng-click="getCards()">Fetch the Cards</button>
@@ -21,6 +27,7 @@
 
               <div  id="cardFace"> {{ card.front_text }}</div>
               <div  id="cardVerso"> {{ card.back_text }}</div>
+              <button ng-click="deleteCard(card.id)">Delete the Card</button>
 
           </div>
         </div>

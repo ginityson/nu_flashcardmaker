@@ -136,12 +136,38 @@ myApp.controller("EditController", ["$scope", "$http",function($scope, $http){
       });//end .then
     };//end getDeck()
 
+
+
+    $scope.deleteCard = function(recordID) {
+      console.log('in deleteCard, recordID: ', recordID);
+      var sendID={id: recordID};
+      $http({
+        method: "DELETE",
+        url: '/deleteCard/' + recordID,
+        headers: {'Content-Type': 'application/json;charset=utf-8'}
+      }).then( function( ){
+        $scope.theCardArray.splice( sendID, 1);
+          console.log( 'after delete card http call ');
+      });//end .then
+    };//end deleteCard
+    $scope.deleteDeck = function(recordID) {
+      console.log('in deleteDeck, recordID: ', recordID);
+      $http({
+        method: "DELETE",
+        url: '/deleteDeck/' + recordID,
+        headers: {'Content-Type': 'application/json;charset=utf-8'}
+      }).then( function( ){
+          console.log( 'after delete deck http call ');
+      });//end .then
+    };//end deleteCard
+
 }]);//end EditController
 
 myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http){
     console.log(" 1 Loaded Practice");
     event.preventDefault();
 
+    // $scope.myInterval = 3000;
     $scope.index = 0;
     console.log('2 ', $scope.index);
 
@@ -158,13 +184,11 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
       event.preventDefault();
 
     $scope.getDeck = function(){
-      // event.preventDefault();
       console.log(' 4 in Practice getDeck()');
       $http({
         method: "GET",
         url: '/getDeck'
       }).then( function( response ){
-        // $scope.theDeckArray = [];
         $scope.theDeckArray = response.data;//pulls data from app.js and sets to ...?
 
         console.log(' 5 getDeckOfCards() in PracticeController' + $scope.theDeckArray);

@@ -1,13 +1,15 @@
-.flashCardMaker {
-  background-color: #0088dd;
-  /*padding: 100px 100px 100px 100px;
-  margin: 100px 100px 100px 100px;*/
+@font-face {
+   font-family: "OpenDyslexic";
+   /*src: url('OpenDyslexic-Regular.woff') format('woff');*/
+}
+body {
+  font-family: 'OpenDyslexic', Fallback, sans-serif;
 }
 
 #cardFace {
   float: left;
-  height: 100px;
-  width: 200px;
+  height: 150px;
+  width: 300px;
   border-width: thick;
   border-style: outset;
   border-color: #0088dd;
@@ -18,8 +20,8 @@
 }
 #cardVerso {
   float: left;
-  height: 100px;
-  width: 200px;
+  height: 150px;
+  width: 300px;
   border-width: thick;
   border-style: outset;
   border-color: green;
@@ -31,4 +33,18 @@
 .card-hide {
     left: -100px !important;
     opacity: 0 !important;
+}
+#slides_control > div{
+  height: 200px;
+}
+img{
+  margin:auto;
+  width: 400px;
+}
+#slides_control {
+  position:absolute;
+  width: 400px;
+  left:50%;
+  top:20px;
+ margin-left:-200px;
 }

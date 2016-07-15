@@ -29,7 +29,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
                   done();
               });//end query push
               query.on ( 'end', function() {
-                console.log(results);
+                console.log('results', results);
                 return res.json( results );
               });//end on end
                 if( err ) {
@@ -67,8 +67,12 @@ app.post( '/deckPost', function( req, res ){
       //console.log(" 1st in /deckPost, and we have received: " + req.body.deck);
       pg.connect(connectionString, function(err, client, done){
             console.log(req.body.deck);
-            client.query("INSERT INTO decks ( name ) VALUES ( $1 )", [ req.body.deck ],
+            client.query("INSERT INTO decks ( name ) VALUES ( $1 )RETURNING id", [ req.body.deck ],
           function(err, result) {
+            console.log( 'restult : ', result );
+          req.body.id = result.rows[0].id;
+            console.log(req.body.id);
+            res.send( req.body.id);
               done();
               if(err){
                 console.log(err);
@@ -89,8 +93,11 @@ app.post( '/deckPost', function( req, res ){
              console.log(req.body.card_front);
              console.log(req.body.card_back);
              console.log(req.body.deck_name);
-             client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
+             client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
            function(err, result) {
+             console.log( 'restult : ', result );
+             cardSaved.id = result.rows[0].id;
+             res.send( cardSaved);
                done();
                if(err){
                  console.log(err);
@@ -103,6 +110,42 @@ app.post( '/deckPost', function( req, res ){
            done();
        });//end pg connect
 }); // end /deckPost
+
+//DELETE for function deleteDeck
+app.delete('/deleteDeck/:id', function( req, res ){
+   console.log( 'reached app.delete Deck' );
+     pg.connect(connectionString, function(err, client, done){
+       console.log( 'err: ', err );
+        client.query("DELETE FROM decks WHERE id =" + req.params.id, function(err ){
+          console.log( 'req.params.id ', req.params.id );
+        if(err){
+          console.log( 'err: ', err );
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+        done();
+      });//end query
+    });//end connect
+});//end deleteDeck
+
+//DELETE for function deleteCard
+app.delete('/deleteCard/:id', function( req, res ){
+   console.log( 'reached app.delete Card' );
+     pg.connect(connectionString, function(err, client, done){
+       console.log( 'err: ', err );
+        client.query("DELETE FROM cards WHERE id =" + req.params.id, function(err ){
+          console.log( 'req.params.id ', req.params.id );
+        if(err){
+          console.log( 'err: ', err );
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+        done();
+      });//end query
+    });//end connect
+});//end deleteCard
 
 //spin up server
 app.listen(3000, 'localhost', function(req, res){

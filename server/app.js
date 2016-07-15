@@ -21,20 +21,22 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
     console.log('in getDeck');
     var results = [];//holds our results
         pg.connect(connectionString, function(err, client, done){
-          var query = client.query( 'SELECT * FROM decks;' );
-          console.log('query: ' + query);
-          var rows = 0;
-              query.on( 'row', function ( row ) {
-                results.push( row );
-                  done();
-              });//end query push
-              query.on ( 'end', function() {
-                console.log('results', results);
-                return res.json( results );
-              });//end on end
-                if( err ) {
-                  console.log(err);
-                }//end err
+
+          if( err ) {
+            console.log(err);
+          }//end err
+          else{
+            var query = client.query( 'SELECT * FROM decks;' );
+            console.log('query: ', query);
+            query.on( 'row', function ( row ) {
+              results.push( row );
+            });//end query push
+            query.on ( 'end', function() {
+              done();
+              console.log('results', results);
+              return res.json( results );
+            });//end on end
+          }
         });//end connect
 });//end /getDeck
 
@@ -71,7 +73,7 @@ app.post( '/deckPost', function( req, res ){
           function(err, result) {
             console.log( 'restult : ', result );
           req.body.id = result.rows[0].id;
-            console.log(req.body.id);
+            console.log('req.body.id ',req.body.id);
             res.send( req.body.id);
               done();
               if(err){
@@ -81,7 +83,7 @@ app.post( '/deckPost', function( req, res ){
                 //console.log('after else in post');
               }
           });//end err handling
-          res.send();
+          // res.send();
           done();
       });//end pg connect
 }); // end /deckPost
@@ -95,19 +97,18 @@ app.post( '/deckPost', function( req, res ){
              console.log(req.body.deck_name);
              client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
            function(err, result) {
-             console.log( 'restult : ', result );
-             cardSaved.id = result.rows[0].id;
-             res.send( cardSaved);
-               done();
+            //  console.log( 'restult : ', result );
                if(err){
                  console.log(err);
                  res.sendStatus(500);
                } else {
-                 console.log('after else in post');
+                  done();
+                  res.sendStatus(200);
+                  console.log('after else in post');
                }//end else
            });//end err handling
-           res.send();
-           done();
+          //  res.send();
+          //  done();
        });//end pg connect
 }); // end /deckPost
 

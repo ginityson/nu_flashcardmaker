@@ -62,7 +62,7 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
             url: '/deckPost',
             data: deckObjectToSend
           }).then( function () {
-            $scope.getDeck();
+            // $scope.getDeck();
           });//end $http call
               $scope.new_deckIn='';//clears input
       };//end createDeck function go serverside
@@ -88,7 +88,7 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
                url: '/cardPost',
                data: cardObjectToSend
              }).then( function () {
-               $scope.getDeck();
+              //  $scope.getDeck();
              });//end $http call
                  $scope.card_front_in='';//clears input
                  $scope.card_back_in='';//clears input

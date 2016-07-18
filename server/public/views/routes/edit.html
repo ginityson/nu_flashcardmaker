@@ -3,16 +3,15 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-
         <h1>Edit Mode</h1>
+      </div>
+        <div class="col-xs-12">
+          <!-- <h1>DROPDOWN OF DECKS</h1> -->
 
-        <div>
-          <h1>DROPDOWN OF DECKS</h1>
-
-          <label>delete a deck
+          <!-- <label>delete a deck
           <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
           <button ng-click="deleteDeck(x.name.id)">delete deck</button>
-          </label>
+          </label> -->
 
             <label>select a deck
             <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
@@ -20,17 +19,16 @@
             </label>
         </div>
 
-        <div>
+        <div class="col-xs-12">
           <h1>THE CARDS</h1>
           There are {{theCardArray.length}} cards in the deck. They are:
-          <div ng-repeat="card in theCardArray">
+          </div>
+          <div class="col-xs-12" ng-repeat="card in theCardArray">
 
               <div  id="cardFace"> {{ card.front_text }}</div>
               <div  id="cardVerso"> {{ card.back_text }}</div>
               <button ng-click="deleteCard(card.id)">Delete the Card</button>
 
           </div>
-        </div>
-        </div>
     </div>
 </div>

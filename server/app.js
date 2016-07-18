@@ -66,7 +66,6 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
 
 //POST for function createDeck
 app.post( '/deckPost', function( req, res ){
-      //console.log(" 1st in /deckPost, and we have received: " + req.body.deck);
       pg.connect(connectionString, function(err, client, done){
             console.log(req.body.deck);
             client.query("INSERT INTO decks ( name ) VALUES ( $1 )RETURNING id", [ req.body.deck ],
@@ -74,16 +73,14 @@ app.post( '/deckPost', function( req, res ){
             console.log( 'restult : ', result );
           req.body.id = result.rows[0].id;
             console.log('req.body.id ',req.body.id);
-            res.send( req.body.id);
+            res.sendStatus( req.body.id);
               done();
               if(err){
                 console.log(err);
                 res.sendStatus(500);
               } else {
-                //console.log('after else in post');
               }
           });//end err handling
-          // res.send();
           done();
       });//end pg connect
 }); // end /deckPost
@@ -97,7 +94,6 @@ app.post( '/deckPost', function( req, res ){
              console.log(req.body.deck_name);
              client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
            function(err, result) {
-            //  console.log( 'restult : ', result );
                if(err){
                  console.log(err);
                  res.sendStatus(500);
@@ -107,8 +103,6 @@ app.post( '/deckPost', function( req, res ){
                   console.log('after else in post');
                }//end else
            });//end err handling
-          //  res.send();
-          //  done();
        });//end pg connect
 }); // end /deckPost
 
@@ -116,11 +110,11 @@ app.post( '/deckPost', function( req, res ){
 app.delete('/deleteDeck/:id', function( req, res ){
    console.log( 'reached app.delete Deck' );
      pg.connect(connectionString, function(err, client, done){
-       console.log( 'err: ', err );
+       console.log( '1 err: ', err );
         client.query("DELETE FROM decks WHERE id =" + req.params.id, function(err ){
           console.log( 'req.params.id ', req.params.id );
         if(err){
-          console.log( 'err: ', err );
+          console.log( '2 err: ', err );
           res.sendStatus(500);
         } else {
           res.sendStatus(200);

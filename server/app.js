@@ -22,8 +22,6 @@ console.log("connectionString set to: ", connectionString);
 
 app.use(bodyParser.json());
 
-app.set('port', (process.env.PORT || 3000));
-
 //static folder
 app.use(express.static('public'));
 
@@ -153,7 +151,7 @@ app.delete('/deleteCard/:id', function( req, res ){
 });//end deleteCard
 
 //spin up server
-app.listen(process.env.PORT || 3000, 'localhost', function(req, res){
+app.listen(process.env.PORT || 3000, function(req, res){
   console.log('listen 3000');
 });//end of server
 

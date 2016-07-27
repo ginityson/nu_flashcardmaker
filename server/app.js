@@ -8,7 +8,17 @@ var pg = require('pg');
 var urlencodedParser = bodyParser.urlencoded( {extended: false});
 
 //postgres must be running and you must have this db name correct
-var connectionString = 'postgres://localhost:5432/flashcard';
+var connectionString = '';
+
+if(process.env.DATABASE_URL !== undefined) {
+     console.log('env connection string');
+     connectionString = process.env.DATABASE_URL;
+     pg.defaults.ssl = true;
+ } else {
+     connectionString = 'postgres://localhost:5432/flashcard';
+}
+
+console.log("connectionString set to: ", connectionString);
 
 app.use(bodyParser.json());
 
@@ -143,9 +153,9 @@ app.delete('/deleteCard/:id', function( req, res ){
 });//end deleteCard
 
 //spin up server
-app.listen(3000, 'localhost', function(req, res){
-  console.log('listen 3000');
-});//end of server
+// app.listen(3000, 'localhost', function(req, res){
+//   console.log('listen 3000');
+// });//end of server
 
 //base url
 app.get("/*", function(req,res){
@@ -156,3 +166,4 @@ app.get("/*", function(req,res){
 
 
 module.exports = app;
+module.exports = connectionString;

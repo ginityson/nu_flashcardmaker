@@ -1,0 +1,12 @@
+-- CREATE TABLE decks (
+-- 	id SERIAL UNIQUE PRIMARY KEY,
+-- 	name VARCHAR(100),
+--
+-- );
+-- CREATE TABLE cards (
+-- 	id SERIAL UNIQUE PRIMARY KEY,
+-- 	front_text, VARCHAR(100),
+-- 	back_text, VARCHAR(100),
+-- 	deck_name VARCHAR(100)
+--
+-- );

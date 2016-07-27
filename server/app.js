@@ -153,9 +153,9 @@ app.delete('/deleteCard/:id', function( req, res ){
 });//end deleteCard
 
 //spin up server
-// app.listen(3000, 'localhost', function(req, res){
-//   console.log('listen 3000');
-// });//end of server
+app.listen(process.env.PORT || 3000, 'localhost', function(req, res){
+  console.log('listen 3000');
+});//end of server
 
 //base url
 app.get("/*", function(req,res){
@@ -163,7 +163,3 @@ app.get("/*", function(req,res){
     var file = req.params[0] || "/views/index.html";
     res.sendFile(path.join(__dirname, "/public/", file));
 });//end base url
-
-
-module.exports = app;
-module.exports = connectionString;

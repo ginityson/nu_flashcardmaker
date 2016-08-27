@@ -207,7 +207,8 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
 
     $scope.shuffleDeck = function(){
     console.log( 'in shuffleDeck' );
-    $scope.myCard = shuffle( $scope.myCard );
+    $scope.myCardShuffled = shuffle( $scope.myCard );
+    console.log("$scope.myCardShuffled", $scope.myCardShuffled);
   };//end fun shuffleDeck
 
   function shuffle(array) {

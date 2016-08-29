@@ -35,7 +35,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
           }//end err
           else{
             var query = client.query( 'SELECT * FROM decks;' );
-            console.log('query: ', query);
+            // console.log('query: ', query);
             query.on( 'row', function ( row ) {
               results.push( row );
             });//end query push

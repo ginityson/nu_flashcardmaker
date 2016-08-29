@@ -1,0 +1,20 @@
+<div ng-controller="ShuffleController">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+          <h1>Shuffle Mode </h1>
+            <h2>DROPDOWN OF DECKS</h2>
+              <label>select a deck
+                <select ng-model="selectDeck" ng-options='x.name for x in theDeckArray'></select>
+                <button ng-click="getCards()">Fetch the Cards</button>
+              </label>
+            <p>There are {{theCardArray.length}} cards in the {{theDeckArray.deck}}deck.</p>
+          <button ng-click="shuffleDeck()" type="button" name="button">Shuffle Deck</button>
+      </div>
+      <div class="col-xs-12" ng-repeat="card in theCardArray">
+          <div  id="cardFace"> {{ card.front_text }}</div>
+          <div  id="cardVerso"> {{ card.back_text }}</div>
+      </div>
+    </div>
+  </div>
+</div>

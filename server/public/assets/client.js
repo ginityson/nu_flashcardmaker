@@ -18,6 +18,10 @@ myApp.config(["$routeProvider", function($routeProvider){
               templateUrl: "/views/routes/practice.html",
               controller: "PracticeController"
           }).
+          when("/shuffle", {
+              templateUrl: "/views/routes/shuffle.html",
+              controller: "ShuffleController"
+          }).
           otherwise({
             redirectTo: "/home"
           });
@@ -205,26 +209,7 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
       });//end .then
     };//end getDeck()
 
-    $scope.shuffleDeck = function(){
-    console.log( 'in shuffleDeck' );
-    $scope.myCardShuffled = shuffle( $scope.myCard );
-    console.log("$scope.myCardShuffled", $scope.myCardShuffled);
-  };//end fun shuffleDeck
 
-  function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-}
 
     $scope.nextCard = function(){
           console.log(" 10 next clicked");
@@ -248,6 +233,65 @@ myApp.controller("PracticeController", ["$scope", "$http",function($scope, $http
         };
 
 }]);//end PracticeController
+
+myApp.controller("ShuffleController", ["$scope", "$http",function($scope, $http){
+    console.log(" 1 Loaded Shuffle");
+
+    $scope.custom = true;//for togle
+
+    $scope.theDeckArray = [];//define the array theDeckArray
+    $scope.theCardArray = [];//define the array theDeckArray
+
+    $scope.myCard = $scope.theCardArray[0];//just trying to drill down to one card at a time
+
+    $scope.getDeck = function(){
+      console.log('in Shuffle getDeck()');
+      $http({
+        method: "GET",
+        url: '/getDeck'
+      }).then( function( response ){
+        $scope.theDeckArray = response.data;
+        console.log('getDeckOfCards() in ShuffleController' + $scope.theDeckArray);
+      });//end .then
+    };//end getDeck()
+    $scope.getDeck();
+
+    $scope.getCards = function(){
+      $http({
+        method: "GET",
+        url: '/getCards'
+      }).then( function( response ){
+        $scope.theCardArray=[];//empties the array so it does  not exponentionaly double
+        for( i=0; i<response.data.length; i++ ){
+          if( response.data[i].deck_name == $scope.selectDeck.name ){
+            $scope.theCardArray.push( response.data[i] );
+          }//end for
+        }//end if
+      });//end .then
+    };//end getDeck()
+
+    $scope.shuffleDeck = function(){
+    console.log( 'in shuffleDeck' );
+    $scope.theCardArray = shuffle( $scope.theCardArray );
+    console.log("$scope.theCardArray", $scope.theCardArray.name);
+    };//end fun shuffleDeck
+
+    function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+    }
+    return array;
+    }
+
+}]);//end ShuffleController
 
 myApp.factory("CounterService", [function(){
 

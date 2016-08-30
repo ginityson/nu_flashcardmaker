@@ -78,7 +78,7 @@ app.post( '/deckPost', function( req, res ){
             console.log(req.body.deck);
             client.query("INSERT INTO decks ( name ) VALUES ( $1 )RETURNING id", [ req.body.deck ],
           function(err, result) {
-            console.log( 'restult : ', result );
+            console.log( 'result : ', result );
           req.body.id = result.rows[0].id;
             console.log('req.body.id ',req.body.id);
             res.sendStatus( req.body.id);

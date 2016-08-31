@@ -13,7 +13,7 @@
       </div>
       <div class="col-xs-12" ng-repeat="card in theCardArray">
           <div  id="cardFace"> {{ card.front_text }}</div>
-            <img id="cardFace" class="TextWrap" ng-src="{{card_front_in}}" height='100px'/>
+            <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
           <div  id="cardVerso"> {{ card.back_text }}</div>
       </div>
     </div>

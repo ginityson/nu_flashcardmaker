@@ -99,8 +99,9 @@ app.post( '/deckPost', function( req, res ){
        pg.connect(connectionString, function(err, client, done){
              console.log(req.body.card_front);
              console.log(req.body.card_back);
+             console.log(req.body.card_image);
              console.log(req.body.deck_name);
-             client.query("INSERT INTO cards ( front_text, back_text, deck_name ) VALUES ( $1, $2, $3 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name ],
+             client.query("INSERT INTO cards ( front_text, back_text, image, deck_name ) VALUES ( $1, $2, $3, $4 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.image, req.body.deck_name ],
            function(err, result) {
                if(err){
                  console.log(err);

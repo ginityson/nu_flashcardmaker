@@ -53,7 +53,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
      var results = [];//holds our results
          pg.connect(connectionString, function(err, client, done){
            if( err ) {
-             console.log(err);
+             console.log('what', err);
            }//end err
            else{
              var query = client.query( 'SELECT * FROM cards' ); // WHERE deck_name=' + req.body.deck_name );
@@ -64,8 +64,10 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
                  done();
              });//end query push
              query.on ( 'end', function() {
-              //  console.log(results);
+              console.log(results);
+              console.log('end of /getCards');
                return res.json( results );
+
              });//end on end
            }
          });//end connect
@@ -97,11 +99,11 @@ app.post( '/deckPost', function( req, res ){
  app.post( '/cardPost', function( req, res ){
        console.log(" 1st in /cardPost, and we have received: " + req.body.deck_name);
        pg.connect(connectionString, function(err, client, done){
-             console.log(req.body.card_front);
-             console.log(req.body.card_back);
-             console.log(req.body.card_image);
-             console.log(req.body.deck_name);
-             client.query("INSERT INTO cards ( front_text, back_text, image, deck_name ) VALUES ( $1, $2, $3, $4 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.image, req.body.deck_name ],
+             console.log('am I here?', req.body.card_front);
+             console.log('am I here?', req.body.card_back);
+             console.log('am I here?', req.body.card_image);
+             console.log('am I here?', req.body.deck_name);
+             client.query("INSERT INTO cards ( front_text, back_text, deck_name, image ) VALUES ( $1, $2, $3, $4 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name, req.body.image ],
            function(err, result) {
                if(err){
                  console.log(err);
@@ -158,7 +160,6 @@ app.listen(process.env.PORT || 3000, function(req, res){
 
 //base url
 app.get("/*", function(req,res){
-    console.log(req.params[0]);
     var file = req.params[0] || "/views/index.html";
     res.sendFile(path.join(__dirname, "/public/", file));
 });//end base url

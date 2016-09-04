@@ -64,7 +64,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
                  done();
              });//end query push
              query.on ( 'end', function() {
-              console.log(results);
+              // console.log(results);
               console.log('end of /getCards');
                return res.json( results );
 
@@ -77,7 +77,7 @@ app.get('/getDeck', function( req, res){//send back all decks that conform to qu
 //POST for function createDeck
 app.post( '/deckPost', function( req, res ){
       pg.connect(connectionString, function(err, client, done){
-            console.log(req.body.deck);
+            console.log('req.body.deck', req.body.deck);
             client.query("INSERT INTO decks ( name ) VALUES ( $1 )RETURNING id", [ req.body.deck ],
           function(err, result) {
             console.log( 'result : ', result );

@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
+
           <h1>Shuffle Mode </h1>
             <h2>DROPDOWN OF DECKS</h2>
               <label>select a deck
@@ -11,10 +12,11 @@
             <p>There are {{theCardArray.length}} cards in the {{theDeckArray.deck}}deck.</p>
           <button ng-click="shuffleDeck()" type="button" name="button">Shuffle Deck</button>
       </div>
+
       <div class="col-xs-12" ng-repeat="card in theCardArray">
           <div  id="cardFace"> {{ card.front_text }}</div>
-            <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
           <div  id="cardVerso"> {{ card.back_text }}</div>
+          <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
       </div>
     </div>
   </div>

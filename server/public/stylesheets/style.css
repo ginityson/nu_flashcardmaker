@@ -28,7 +28,17 @@ body {
   padding: 10px;
   margin: 50px 50px 50px 0px;
   text-align: center;
-
+}
+#cardImage {
+  float: left;
+  height: 150px;
+  width: 300px;
+  border-width: thick;
+  border-style: outset;
+  border-color: red;
+  padding: 10px;
+  margin: 50px 50px 50px 0px;
+  text-align: center;
 }
 #floatLeft {
   float: left;

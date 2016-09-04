@@ -12,18 +12,23 @@
               </label>
       </div>
 <p>There are {{theCardArray.length}} cards in the {{theDeckArray.deck}}deck.</p>
+
+<!-- <div class="col-xs-12" ng-repeat="card in theCardArray">
+    <div  id="cardFace"> {{ card.front_text }}</div>
+    <div  id="cardVerso"> {{ card.back_text }}</div>
+    <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
+</div> -->
+
       <div class="col-xs-12">
         <div  ng-text="card in theCardArray">
           <div id="nextPrevious">
-              <div id="cardFace">
-                  {{myCard.front_text}}
-              </div>
+              <div id="cardFace">{{myCard.front_text}}</div>
+
               <div id="cardVerso">
                   <span ng-show="verso">{{myCard.back_text}}</span>
                   <span ng-hide="verso"></span>
+                  <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
               </div>
-
-
 
               <button type="button" name="Prevbutton" ng-click= "prevCard()">Previous</button>
               <button type="button" name="Nextbutton" ng-click= "nextCard()">Next</button>
@@ -32,7 +37,7 @@
         </div>
       </div>
 
-      <div class="col-xs-12">
+      <!-- <div class="col-xs-12">
 
             Currently selected: {{ {selected_card: myCard} }}
                   <div id="cardFace">
@@ -40,14 +45,19 @@
                   </div>
 
                   <div id="cardVerso">
-                    <span ng-show="verso">{{myCard.back_text}}</span>
+                    <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
+                    <span ng-show="verso">
+                      {{myCard.back_text}}</span>
                     <span ng-hide="verso"></span>
+                  </div>
+                  <div id="cardImage" class="box" >
+                    <a>{{card_image_in}}</a>
                   </div>
                   <label>Choose a Card:
                     <select ng-model="myCard" ng-options="card.front_text for card in theCardArray"></select>
                   </label>
                   <button ng-click="verso=!verso">Verso!</button>
-        </div>
+        </div> -->
 
          <!-- <div class="col-xs-12">
             <h2>The CARDS</h2>

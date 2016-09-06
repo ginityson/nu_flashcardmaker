@@ -101,7 +101,7 @@ app.post( '/deckPost', function( req, res ){
        pg.connect(connectionString, function(err, client, done){
              console.log('am I here?', req.body.card_front);
              console.log('am I here?', req.body.card_back);
-             console.log('am I here?', req.body.card_image);
+             console.log('am I here?', req.body.image);
              console.log('am I here?', req.body.deck_name);
              client.query("INSERT INTO cards ( front_text, back_text, deck_name, image ) VALUES ( $1, $2, $3, $4 )RETURNING id", [ req.body.card_front, req.body.card_back, req.body.deck_name, req.body.image ],
            function(err, result) {

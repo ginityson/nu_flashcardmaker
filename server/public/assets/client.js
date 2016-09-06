@@ -86,7 +86,7 @@ myApp.controller("MakeController", ["$scope", "CounterService","$http", function
              var cardObjectToSend = {//define object cardObjectToSend from card_front_in input expression
                card_front: $scope.card_front_in,
                card_back: $scope.card_back_in,//match ng-model="card_back_in"
-               card_image: $scope.card_image_in,
+               image: $scope.card_image_in,
                deck_name: $scope.selectDeck.name
              };//end object cardObjectToSend
              $http({//POST cardObjectToSend via url route of /cardPost

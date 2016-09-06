@@ -27,9 +27,9 @@
 
               <div  id="cardFace"> {{ card.front_text }}</div>
               <div  id="cardVerso"> {{ card.back_text }}</div>
-
+              <img id="cardImage" class="TextWrap" ng-src="{{card.image}}" height='100px'/>
               <!-- <input type="text" ng-model="card_front_in" name="name" placeholder="card_front_in" value=""> -->
-              <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/>
+              <!-- <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/> -->
               <button ng-click="deleteCard(card.id)">Delete the Card</button>
 
           </div>

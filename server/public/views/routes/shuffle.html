@@ -16,8 +16,9 @@
       <div class="col-xs-12" ng-repeat="card in theCardArray">
           <div  id="cardFace"> {{ card.front_text }}</div>
           <div  id="cardVerso"> {{ card.back_text }}</div>
-          <div  id="cardImage"> {{ card.image_text }}</div>
+          <!-- <div  id="cardImage"> {{ card.image }}</div> -->
           <!-- <img id="cardFace" class="TextWrap" ng-src="{{card.front_text}}" height='100px'/> -->
+          <img id="cardImage" class="TextWrap" ng-src="{{card.image}}" height='100px'/>
       </div>
     </div>
   </div>
